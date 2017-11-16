@@ -1,0 +1,17 @@
+/* Var */
+* {
+  margin: 0;
+  padding: 0; }
+
+.flex-conteiner {
+  display: flex; }
+
+.items {
+  padding: 5px 10px; }
+
+header {
+  color: #ffffff;
+  background-color: #707B82;
+  height: 1.8em; }
+
+/*# sourceMappingURL=style.css.map */

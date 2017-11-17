@@ -39,7 +39,7 @@ $(document).ready(function() {
   function Submit() {
       console.log('done');
       $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: 'main.php',
         data: $(this).serialize()
       }).done(function() {

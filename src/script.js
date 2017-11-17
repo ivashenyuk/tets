@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   /* Open window */
-    $('#form').click(function() {
+    $('.form').click(function() {
       $('.js-hidden').fadeIn();
       $('.js-hidden').addClass('disabled');
     });
@@ -24,7 +24,7 @@ $(document).ready(function() {
   })(jQuery);
 
 /* Multi select */
-  $('#custom-headers').onclick(function() {
+  /*$('#custom-headers').onclick(function() {
     let selectedOption = $('#custom-headers option:selected');
     if(selectedOption.lenght > 0) {
       let resultString = '';
@@ -33,8 +33,20 @@ $(document).ready(function() {
           console.log($(this).val());
         });
     }
-  });
+  });*/
 
+/* Submit form */
+  function Submit() {
+      console.log('done');
+      $.ajax({
+        type: 'GET',
+        url: 'main.php',
+        data: $(this).serialize()
+      }).done(function() {
+        alert('Done!');
+      });
+    return false;
+  }
 
 });
 

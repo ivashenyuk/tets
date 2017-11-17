@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
   /* Open window */
-  $('#form').click(function () {
+  $('.form').click(function () {
     $('.js-hidden').fadeIn();
     $('.js-hidden').addClass('disabled');
   });
@@ -23,14 +23,27 @@ $(document).ready(function () {
   })(jQuery);
 
   /* Multi select */
-  $('#custom-headers').onclick(function () {
-    var selectedOption = $('#custom-headers option:selected');
-    if (selectedOption.lenght > 0) {
-      var resultString = '';
-      selectedOption.each(function () {
-        $('#result').val = $(this).val();
-        console.log($(this).val());
-      });
+  /*$('#custom-headers').onclick(function() {
+    let selectedOption = $('#custom-headers option:selected');
+    if(selectedOption.lenght > 0) {
+      let resultString = '';
+        selectedOption.each(function() {
+          $('#result').val = $(this).val();
+          console.log($(this).val());
+        });
     }
-  });
+  });*/
+
+  /* Submit form */
+  function Submit() {
+    console.log('done');
+    $.ajax({
+      type: 'GET',
+      url: 'main.php',
+      data: $(this).serialize()
+    }).done(function () {
+      alert('Done!');
+    });
+    return false;
+  }
 });

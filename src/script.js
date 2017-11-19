@@ -2,6 +2,7 @@ $(document).ready(function() {
 
 /* Open window */
     $('.form').click(function() {
+      $.ajax({url: 'php/getPost.php'})
       $('.js-hidden').fadeIn();
       $('.js-hidden').addClass('disabled');
     });
@@ -42,7 +43,7 @@ $(document).ready(function() {
     $(document).ready(function() {
       $('#js-save').bind("click", function() {
         $.ajax({
-          url: 'dataIntoDB.php',
+          url: 'php/dataIntoDB.php',
           type: 'POST',
           data: ({ name: $('#name-project').val(), description: $('#description-project').val() }),
           dataType: 'html',
@@ -62,7 +63,7 @@ $(document).ready(function() {
 
 /* Received data */
   $.ajax({
-    url: 'content.php',
+    url: 'php/content.php',
     type: 'POST',
     dataType: 'html',
     beforeSend: function () {

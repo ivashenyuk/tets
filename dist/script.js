@@ -13,6 +13,7 @@ $(document).ready(function () {
     $('.js-hidden').fadeOut();
   });
 
+  /* Tabs */
   (function ($) {
     $(function () {
 
@@ -35,15 +36,36 @@ $(document).ready(function () {
   });*/
 
   /* Submit form */
-  function Submit() {
-    console.log('done');
-    $.ajax({
-      type: 'GET',
-      url: 'main.php',
-      data: $(this).serialize()
-    }).done(function () {
-      alert('Done!');
+  $(document).ready(function () {
+    $('#js-save').bind("click", function () {
+      $.ajax({
+        url: 'dataIntoDB.php',
+        type: 'POST',
+        data: { name: $('#name-project').val(), description: $('#description-project').val() },
+        dataType: 'html',
+        beforeSend: function beforeSend() {
+          $('#js-save').text('Wait...');
+          $('.js-save').addClass('disabled');
+        },
+        success: function success(data) {
+          $('#js-save').text('Done!');
+          $('.js-save').removeClass('disabled');
+        }
+      });
     });
-    return false;
-  }
+  });
+
+  /* Received data */
+  $.ajax({
+    url: 'content.php',
+    type: 'POST',
+    dataType: 'html',
+    beforeSend: function beforeSend() {
+      // if slow internet
+      $('#js-content-id').html("<img style=\"margin: auto; height: 15em;\" src=\"https://reservations.tsogosun.com/images/loading.gif\" alt=\"loading\">");
+    },
+    success: function success(data) {
+      $('#js-content-id').html(data);
+    }
+  });
 });

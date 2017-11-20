@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!-- Include styles -->
+	<link rel="stylesheet" href="/css/style.css">
+
+	<!-- Include scripts -->
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+	<script src="script.js"></script>
+	<script>	
+	function myClick(id) {
+		$('#js-save').hide();	
+		$('#js-update').show();
+	    $.ajax({
+		    url: 'php/dataForPost.php',
+		    type: 'POST',
+		    data: ({id: id}),
+		    dataType: 'html',
+		    beforeSend: function () {
+		      // if slow internet
+		      $('#js-hidden').html("<img style=\"margin: auto; height: 15em;\" src=\"https://reservations.tsogosun.com/images/loading.gif\" alt=\"loading\">");
+		    },
+		    success: function (data) {
+		        let obj = jQuery.parseJSON(data);
+		        console.log(obj);
+		        $('#name-project').val(obj['NAME']);
+		        $('#description-project').val(obj['DESCRIPTION']);
+		        $('.js-hidden').fadeIn();
+      			$('.js-hidden').addClass('disabled');
+      			$('#form').attr("name", obj['ID']);
+	    	}
+	  	});	
+	}
+	</script>
+</head>
+<body>
+	<!-- Header -->
+	<header class="flex-conteiner logo">
+		<div>Home</div>
+		<div class="add_project flex">
+			<button class="form">Add project</button>
+		</div>
+	</header>
+	<!-- Main content -->
+	<main class="flex-conteiner content" id="js-content-id">
+		
+	</main>
+	<!-- footer -->
+	<footer>
+		
+	</footer>
+
+
+
+	<div class="hidden js-hidden" id="hidden">
+		<div class="popup" id="js-popup">
+			<div class="header-modale">
+				Project Settings
+			</div>
+			<div class="main">
+
+				<div class="tabs">
+					<ul class="tabs__caption">
+						<li class="active">General</li>
+						<li>Team</li>
+					</ul>
+					<div class="tabs__content  active">
+						<form id="form" class="lol">
+							<label for="name-project">Название проекта: </label><input type="text" class="tab1" id="name-project" value=""> <br>
+							<label for="description-project">Описсание проекта: </label><textarea class="tab1" id="description-project"></textarea>
+							
+							<div class="flex">
+								<button class="save" id="js-save">Save</button>
+								<button class="save " id="js-update">Update</button>
+								<button class="close-popup" id="js-close">Close</button>
+							</div>
+						</form>
+					</div>
+					<div class="tabs__content">
+						<table>
+							<tr>
+								<th class="head">All Users</th>
+								<th ></th>
+								<th class="head">Selected Users </th>
+							</tr>
+							<tr>
+								<td><input type="text" class="search" placeholder="Пошук..."></td>
+								<td style="width: 60px;"></td>
+								<td><input type="text" class="search" placeholder="Пошук..."></td>
+							</tr>
+							<tr>
+								<td>
+									<select multiple="multiple" class="multiple">
+										<option value="">Jon Smith(smith@yaware.com)</option>
+										<option value="" >Adam Jonhson(Adam@yaware.com)</option>
+										<option value="">John Smith(John@yaware.com)</option>
+										<option value=""  selected="selected">Eva Doe(Eva@yaware.com)</option>
+										<option value="" >Adam(Adam@yaware.com)</option>
+										<option value="">Jon Smith(Jon@yaware.com)</option>
+									</select>
+								</td>
+								<td><img height="20em" src="http://freevector.co/wp-content/uploads/2012/03/60404-right-and-left-arrows-outlines.png" alt="<->" class="replace"></td>
+								<td class="multiple">
+									<select multiple="multiple" class="multiple">
+										<option value="" selected="selected">Назар Михайлів(smith@yaware.com)</option>
+										<option value="" >Валентина Іванова(smith@yaware.com)</option>
+										<option value="">Назар Михайлів(smith@yaware.com)</option>
+									</select>
+								</td>
+								
+							</tr>
+							<tr>
+								<div class="for_top">
+									<td>
+										<label style="width: 20em; padding-top: 3.3em;">Team Leed: </label>	
+									</td>
+									<td >
+										<select  class="select">
+												<option value="" selected="selected">Назар Михайлів(smith@yaware.com)</option>
+												<option value="">Eva Doe(Eva@yaware.com)</option>
+										</select>
+									</td>	
+								</div>
+							</tr>
+						</table>
+					</div>
+				</div><!-- .tabs -->
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

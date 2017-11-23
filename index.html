@@ -9,6 +9,7 @@
 	<!-- Include scripts -->
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 	<script src="script.js"></script>
+	<script src="multiselect.min.js"></script>
 	<script>	
 	function myClick(id) {
 		$('#js-save').hide();	
@@ -24,15 +25,43 @@
 		    },
 		    success: function (data) {
 		        let obj = jQuery.parseJSON(data);
-		        console.log(obj);
+		      
 		        $('#name-project').val(obj['NAME']);
 		        $('#description-project').val(obj['DESCRIPTION']);
+                 $("#teamleed option:selected").text(obj['TEAMLEED']);
+
+                 let value = obj['WORKERS'];
+                 let name = "";
+
+	                 for (let i = 0; i < value.length; i++) {
+	                 	name += value[i];
+	                 	if(value[i] == ')') {
+	                 		$("#undo_redo_to").append($('<option>', {text: name}));
+	                 		name = "";
+	                 	}
+	                 }
+
+                $("#undo_redo_to option").each(function() {
+			        let toRemove1 = $(this);  
+
+			        	$("#undo_redo option").each(function() {
+					        let toRemove2 = $(this);  
+					        
+					              if(toRemove2.text() == toRemove1.text()) {
+					              	toRemove2.remove();   
+					              }
+				            
+				        });            
+		        });
+
 		        $('.js-hidden').fadeIn();
       			$('.js-hidden').addClass('disabled');
       			$('#form').attr("name", obj['ID']);
+      			
 	    	}
 	  	});	
 	}
+
 	</script>
 </head>
 <body>
@@ -92,39 +121,40 @@
 							</tr>
 							<tr>
 								<td>
-									<select multiple="multiple" class="multiple">
-										<option value="">Jon Smith(smith@yaware.com)</option>
-										<option value="" >Adam Jonhson(Adam@yaware.com)</option>
-										<option value="">John Smith(John@yaware.com)</option>
-										<option value=""  selected="selected">Eva Doe(Eva@yaware.com)</option>
-										<option value="" >Adam(Adam@yaware.com)</option>
-										<option value="">Jon Smith(Jon@yaware.com)</option>
+									<select name="from[]" id="undo_redo" class="multiple form-control" size="13" multiple="multiple">
+										<option>Jon Smith(smith@yaware.com)</option>
+										<option>Adam Jonhson(Adam@yaware.com)</option>
+										<option>John Smith(John@yaware.com)</option>
+										<option>Eva Doe(Eva@yaware.com)</option>
+										<option >Adam(Adam@yaware.com)</option>
+											
 									</select>
 								</td>
-								<td><img height="20em" src="http://freevector.co/wp-content/uploads/2012/03/60404-right-and-left-arrows-outlines.png" alt="<->" class="replace"></td>
+								<td>
+									<button type="button" id="undo_redo_rightSelected" class="btn btn-default btn-block">></button>
+        							<button type="button" id="undo_redo_leftSelected" class="btn btn-default btn-block"><</button>
+								</td>
 								<td class="multiple">
-									<select multiple="multiple" class="multiple">
-										<option value="" selected="selected">Назар Михайлів(smith@yaware.com)</option>
-										<option value="" >Валентина Іванова(smith@yaware.com)</option>
-										<option value="">Назар Михайлів(smith@yaware.com)</option>
-									</select>
+									 <select name="to[]" id="undo_redo_to" class="multiple form-control" size="13" multiple="multiple">
+									 	
+									 </select>
 								</td>
-								
 							</tr>
 							<tr>
 								<div class="for_top">
 									<td>
-										<label style="width: 20em; padding-top: 3.3em;">Team Leed: </label>	
-									</td>
-									<td >
-										<select  class="select">
-												<option value="" selected="selected">Назар Михайлів(smith@yaware.com)</option>
-												<option value="">Eva Doe(Eva@yaware.com)</option>
+										<label style="width: 5em; margin-top: 3.3em; display: inline-flex;">Team Leed: </label>	
+										<select  class="select" id="teamleed">
+												<option selected="selected">Назар Михайлів(smith@yaware.com)</option>
+												<option>Eva Doe(Eva@yaware.com)</option>
 										</select>
 									</td>	
 								</div>
 							</tr>
 						</table>
+						<div class="flex">
+								<button class="close-popup" id="jss-close">Close</button>
+						</div>
 					</div>
 				</div><!-- .tabs -->
 

@@ -4,7 +4,6 @@ module.exports = {
 	entry: "./dist/script",
 	output: {
 		filename: "script.js",
-		library: "index"
 	},
 
 	watch: true,

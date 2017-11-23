@@ -31,6 +31,16 @@ $(document).ready(function () {
   /* Clouse window */
   $('#js-close').click(function () {
     $('.js-hidden').fadeOut();
+
+    toRem();
+  });
+  $('#jss-close').click(function () {
+    $('.js-hidden').fadeOut();
+    toRem();
+  });
+  /* Multi select */
+  $(function () {
+    $('#undo_redo').multiselect();
   });
 
   /* Tabs */
@@ -43,25 +53,23 @@ $(document).ready(function () {
     });
   })(jQuery);
 
-  /* Multi select */
-  /*$('#custom-headers').onclick(function() {
-    let selectedOption = $('#custom-headers option:selected');
-    if(selectedOption.lenght > 0) {
-      let resultString = '';
-        selectedOption.each(function() {
-          $('#result').val = $(this).val();
-          console.log($(this).val());
-        });
-    }
-  });*/
-
   /* Update data */
   $(document).ready(function () {
     $('#js-update').bind("click", function () {
+      var str = "";
+      $("#undo_redo_to").each(function () {
+        str += $(this).text();
+      });
       $.ajax({
         url: 'php/dataUpdateDB.php',
         type: 'POST',
-        data: { id: $('#form').attr('name'), name: $('#name-project').val(), description: $('#description-project').val() },
+        data: {
+          id: $('#form').attr('name'),
+          name: $('#name-project').val(),
+          description: $('#description-project').val(),
+          workers: str.trim(),
+          teamleed: $("#teamleed option:selected").text().trim()
+        },
         dataType: 'html',
         beforeSend: function beforeSend() {
           $('#js-update').text('Wait...');
@@ -79,10 +87,19 @@ $(document).ready(function () {
   /* Submit form */
   $(document).ready(function () {
     $('#js-save').bind("click", function () {
+      var str = void 0;
+      $("#undo_redo_to").each(function () {
+        str = $(this).text();
+      });
       $.ajax({
         url: 'php/dataIntoDB.php',
         type: 'POST',
-        data: { name: $('#name-project').val(), description: $('#description-project').val() },
+        data: {
+          name: $('#name-project').val(),
+          description: $('#description-project').val(),
+          workers: str.trim(),
+          teamleed: $("#teamleed option:selected").text().trim()
+        },
         dataType: 'html',
         beforeSend: function beforeSend() {
           $('#js-save').text('Wait...');
@@ -96,3 +113,10 @@ $(document).ready(function () {
     });
   });
 });
+
+function toRem() {
+  $("#undo_redo_to option").each(function () {
+    var toRemove = $(this);
+    toRemove.remove();
+  });
+}

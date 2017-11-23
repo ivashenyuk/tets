@@ -125,7 +125,6 @@ button {
 }
 
 .select {
-	margin-left: -29em;
 	margin-top: 3.5em;
 	height: 2em;
 }
@@ -149,18 +148,14 @@ textarea {
 		margin-left: 2px;
 	}
 }
-button.replace {
-	opacity: 0.6; 
-	width: 2em;
-	height: 2em;
-	text-align: center;
-	margin: 0px 15px;
-	padding: 2px 4px 3px 2px;
-
+.replace {	
+	width: 1.2em; 
+	height: 1.2em;
 }
-button.replace:hover {
-	background-color: red;
-	cursor: pointer;
+.rep {
+	opacity: 0.6;
+	width: 2em; 
+	height: 2em;
 }
 .save {
 	background-color: #3F8ECC;
